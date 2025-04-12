@@ -170,12 +170,16 @@ export function CallButton({
               Difficulty:
             </Label>
             <Select value={difficulty} onValueChange={setDifficulty}>
-              <SelectTrigger className="w-full bg-white/10 border-white/20 text-white">
+              <SelectTrigger className="w-[180px] transition-colors">
                 <SelectValue placeholder="Select difficulty" />
               </SelectTrigger>
               <SelectContent>
                 {DIFFICULTY_LEVELS.map((level) => (
-                  <SelectItem key={level.value} value={level.value}>
+                  <SelectItem
+                    key={level.value}
+                    value={level.value}
+                    className="hover:bg-red-100 focus:bg-red-100 cursor-pointer"
+                  >
                     {level.label}
                   </SelectItem>
                 ))}
@@ -191,8 +195,8 @@ export function CallButton({
               id="topic"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="bg-white/10 border-white/20 text-white"
-              placeholder="e.g. JavaScript, React, Python"
+              className="w-[180px] transition-colors bg-white/10 border-white/20 text-white"
+              placeholder="e.g. JavaScript, React"
             />
           </div>
         </div>

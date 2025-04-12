@@ -1,6 +1,5 @@
 "use client";
 
-import { christmasFont } from "@/components/custom-fonts";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -81,7 +80,7 @@ export function InterviewCard({
           <div className="container mx-auto">
             <DrawerHeader>
               <DrawerTitle className="text-2xl font-bold text-blue-600 text-center">
-                Interview Feedback
+                {name ? `${name}'s Interview Feedback` : "Interview Feedback"}k
               </DrawerTitle>
               <hr className="border-t-2 border-blue-300 my-2 opacity-20" />
             </DrawerHeader>

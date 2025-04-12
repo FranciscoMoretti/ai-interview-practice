@@ -31,7 +31,7 @@ export function InterviewCard({ name, feedbackHistory, overallFeedback, onStartN
     <Card className="w-full max-w-2xl mx-auto">
       <CardHeader>
         <CardTitle>Interview Results for {name}</CardTitle>
-        <CardDescription>Here's your interview feedback and recommendations</CardDescription>
+        <CardDescription>{"Here's your interview feedback and recommendations"}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div>

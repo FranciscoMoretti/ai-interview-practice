@@ -3,7 +3,6 @@
 import {
   getAgentSignedUrl,
   getSupabaseUploadSignedUrl,
-  saveConversationData,
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
@@ -20,7 +19,7 @@ import Image from "next/image";
 import { LANGUAGES } from "@/components/language-dropdown";
 
 
-const NUM_QUESTIONS = 5
+const NUM_QUESTIONS = 3
 
 export default function Page() {
   const conversation = useConversation();
@@ -65,9 +64,6 @@ export default function Page() {
   // session state
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [name, setName] = useState<string | null>(null);
-  const [wishlist, setWishlist] = useState<
-    Array<{ key: string; name: string }>
-  >([]);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
   const [isPreviewVideoLoading, setIsPreviewVideoLoading] = useState(true);
@@ -77,13 +73,6 @@ export default function Page() {
     id: string;
     text: string;
     category: string;
-  } | null>(null);
-  
-  const [feedback, setFeedback] = useState<{
-    questionId: string;
-    text: string;
-    score: number;
-    suggestions: string[]
   } | null>(null);
   
   const [feedbackHistory, setFeedbackHistory] = useState<Array<{
@@ -123,14 +112,13 @@ export default function Page() {
           autoGainControl: false,
         },
       });
+      
       streamRef.current = stream;
       setHasAudioAccess(true);
       return stream;
     } catch (err) {
       console.error(err);
-      toast.error(
-        "Please grant audio permissions in site settings to continue"
-      );
+      toast.error("Please grant audio permissions in site settings to continue");
       setHasAudioAccess(false);
       return null;
     }
@@ -211,30 +199,6 @@ export default function Page() {
     };
   }, []);
 
-  // Update the useEffect
-  useEffect(() => {
-    let mounted = true;
-    const setupStream = async () => {
-      const stream = await requestAudioPermissions();
-      if (stream && videoRef.current && mounted) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-        setIsPreviewVideoLoading(false);
-      } else {
-        setIsPreviewVideoLoading(false);
-      }
-    };
-    setupStream();
-    return () => {
-      mounted = false;
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => {
-          track.stop();
-        });
-        streamRef.current = null;
-      }
-    };
-  }, []);
 
   // call handling
   const startCall = async () => {
@@ -267,27 +231,12 @@ export default function Page() {
             setName(parameters.name);
             setIsCardOpen(true);
           },
-          triggerAddItemToWishlist: async (parameters: {
-            itemName: string;
-            itemKey: string;
-          }) => {
-            setWishlist(prevWishlist => [
-              ...prevWishlist,
-              { name: parameters.itemName, key: parameters.itemKey },
-            ]);
-          },
-          triggerRemoveItemFromWishlist: async (parameters: {
-            itemKey: string;
-          }) => {
-            setWishlist(prevWishlist =>
-              prevWishlist.filter(item => item.key !== parameters.itemKey)
-            );
-          },
           // New interview practice tools
           triggerQuestionAsked: async (parameters: {
             questionId: string;
             questionText: string;
           }) => {
+            // TODO: Verify why this isn't being triggered
             // Store the current question for feedback
             setCurrentQuestion({
               id: parameters.questionId,
@@ -302,14 +251,7 @@ export default function Page() {
             score: number;
             suggestions: string[]
           }) => {
-            // Store the feedback for the current question
-            setFeedback({
-              questionId: parameters.questionId,
-              text: parameters.feedback,
-              score: parameters.score,
-              suggestions: parameters.suggestions
-            });
-            
+
             // Add to the feedback history
             setFeedbackHistory(prev => [
               ...prev,
@@ -398,7 +340,10 @@ export default function Page() {
         toast.success("Video uploaded successfully!");
       }
 
-      await saveConversationData({ conversationId, name, wishlist });
+      // TODO: Save conversation to DB
+      console.log(feedbackHistory)
+      console.log(overallFeedback)
+      // await saveConversationData({ conversationId, name, wishlist });
       await conversation.endSession();
       if (streamRef.current) {
         streamRef.current.getTracks().forEach(track => track.stop());
