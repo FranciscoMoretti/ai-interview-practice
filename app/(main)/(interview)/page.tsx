@@ -5,7 +5,7 @@ import {
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
-import { InterviewCard } from "@/components/santa-card";
+import { InterviewCard } from "@/components/interview-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useConversation } from "@11labs/react";
@@ -324,10 +324,10 @@ export default function Page() {
             >
               <Image
                 src="/assets/interviewer.png"
-                alt="Santa"
+                alt="Interviewer"
                 width={128}
                 height={128}
-                className="object-cover opacity-90"
+                className="object-cover"
                 sizes="128px"
               />
             </motion.div>
