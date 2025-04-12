@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mail, VideoIcon, VideoOffIcon, Download, RefreshCw, AudioLines } from "lucide-react";
+import { Mail, Download, RefreshCw, AudioLines } from "lucide-react";
 
 interface FeedbackItem {
   questionId: string;
@@ -75,7 +75,7 @@ export function InterviewCard({
       </AnimatePresence>
       <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerContent
-          className={cn("mx-auto max-w-4xl px-6")}
+          className={cn("mx-auto max-w-2xl px-6")}
         >
           <div className="container mx-auto flex flex-col items-stretch gap-4 px-6">
             <DrawerHeader>
@@ -84,7 +84,7 @@ export function InterviewCard({
               </DrawerTitle>
               <hr className="border-t-2 border-blue-300 my-2 opacity-20" />
             </DrawerHeader>
-            {overallFeedback && (
+            {overallFeedback ?(
               <div className="max-w-2xl mx-auto bg-white rounded-lg mb-6 ">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
@@ -163,8 +163,8 @@ export function InterviewCard({
                   </div>
                 </div>
               </div>
-            )}
-            
+            ):
+            (
             <div className="max-w-2xl mx-auto bg-white rounded-lg w-full">
               
               {feedbackHistory.length === 0 ? (
@@ -216,6 +216,7 @@ export function InterviewCard({
                 </div>
               )}
             </div>
+            )}
             
             <DrawerFooter className="flex justify-between border-t pt-6">
               <span className="text-gray-500">

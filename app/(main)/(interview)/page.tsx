@@ -44,6 +44,13 @@ const DUMMY_FEEDBACK_HISTORY = [
   }
 ]
 
+const DUMMY_OVERALL_FEEDBACK = {
+  score: 5,
+  strengths: ["Good job!", "Be more concise", "Use more active verbs"],
+  areasForImprovement: ["Be more concise", "Use more active verbs"],
+  nextSteps: ["Be more concise", "Use more active verbs"],
+}
+
 
 export default function Page() {
   const conversation = useConversation({
@@ -90,7 +97,7 @@ export default function Page() {
     strengths: string[];
     areasForImprovement: string[];
     nextSteps: string[];
-  } | null>(null);
+  } | null>(DUMMY_OVERALL_FEEDBACK);
 
   useEffect(() => {
     try {
