@@ -109,7 +109,7 @@ export function CallButton({
       >
         <div className="absolute left-3 top-1/2 -translate-y-1/2">
           <Image
-            src="/assets/santa.webp"
+            src="/assets/interviewer.png"
             alt="Santa"
             className="rounded-full"
             width={48}

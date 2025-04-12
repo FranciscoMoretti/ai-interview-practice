@@ -300,7 +300,7 @@ export default function Page() {
               animate={{ opacity: 1, y: 0 }}
             >
               <Image
-                src="/assets/santa.webp"
+                src="/assets/interviewer.png"
                 alt="Santa"
                 width={128}
                 height={128}

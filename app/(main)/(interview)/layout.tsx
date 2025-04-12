@@ -1,8 +1,7 @@
-import { Logo } from "@/components/logo/index";
-import { Snowfall } from "@/components/snowfall";
+import { LogoIcon } from "@/components/logo/index";
 import Link from "next/link";
 import { DisclaimerButton } from "@/components/disclaimer-button";
-
+import Image from "next/image";
 export default function Layout({
   children,
 }: Readonly<{
@@ -11,8 +10,9 @@ export default function Layout({
   return (
     <div className="relative min-h-screen overflow-hidden font-[family-name:var(--font-geist-sans)]">
       <div className="absolute top-0 left-0 right-0 flex justify-between p-4 z-10">
-        <Link href="/">
-          <Logo />
+        <Link href="/" className="flex items-center gap-2">
+          <LogoIcon />
+          <span className="text-white text-2xl font-bold">AI Mock Interview</span>
         </Link>
       </div>
 
@@ -22,17 +22,16 @@ export default function Layout({
         </div>
       </main>
 
-      <div
+      <Image
         className="absolute inset-0 z-[-2]"
+        src="/assets/background.png"
+        alt="Background"
+        fill
         style={{
-          background: `url('/assets/background.webp')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          objectFit: "cover",
+          objectPosition: "center",
         }}
       />
-      <div className="absolute inset-0 z-[-1]">
-        <Snowfall />
-      </div>
       <DisclaimerButton />
     </div>
   );
