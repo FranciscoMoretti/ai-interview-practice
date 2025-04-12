@@ -20,7 +20,23 @@ import { LANGUAGES } from "@/components/language-dropdown";
 const NUM_QUESTIONS = 3
 
 export default function Page() {
-  const conversation = useConversation();
+  const conversation = useConversation({
+    onDisconnect: (disconnectionDetails)   => {
+      console.log("disconnectionDetails", disconnectionDetails);
+    },
+    onConnect: (connectionDetails) => {
+      console.log("connectionDetails", connectionDetails);
+    },
+    onError(message, context) {
+      console.log("error", message, context);
+    },
+    onUnhandledClientToolCall(message) {
+      console.log("unhandledClientToolCall", message);
+    },
+    onDebug(props) {
+      console.log("debug", props);
+    },
+  });
   const router = useRouter();
 
   // permission state
@@ -28,6 +44,34 @@ export default function Page() {
   const [language, setLanguage] = useState<string | null>(null);
   const [difficulty, setDifficulty] = useState<string>("intermediate");
   const [topic, setTopic] = useState<string>("JavaScript");
+  // session state
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [name, setName] = useState<string | null>(null);
+  const [isCardOpen, setIsCardOpen] = useState(false);
+  const [isEndingCall, setIsEndingCall] = useState(false);
+
+    // Interview feedback state
+  const [currentQuestion, setCurrentQuestion] = useState<{
+    id: string;
+    text: string;
+    category: string;
+  } | null>(null);
+  
+  const [feedbackHistory, setFeedbackHistory] = useState<Array<{
+    questionId: string;
+    questionText: string;
+    answer: string;
+    feedback: string;
+    score: number;
+    suggestions: string[]
+  }>>([]);
+  
+  const [overallFeedback, setOverallFeedback] = useState<{
+    score: number;
+    strengths: string[];
+    areasForImprovement: string[];
+    nextSteps: string[];
+  } | null>(null);
 
   useEffect(() => {
     try {
@@ -57,34 +101,8 @@ export default function Page() {
     }
   }, [language]);
 
-  // session state
-  const [conversationId, setConversationId] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [isCardOpen, setIsCardOpen] = useState(false);
-  const [isEndingCall, setIsEndingCall] = useState(false);
+
   
-  // Interview feedback state
-  const [currentQuestion, setCurrentQuestion] = useState<{
-    id: string;
-    text: string;
-    category: string;
-  } | null>(null);
-  
-  const [feedbackHistory, setFeedbackHistory] = useState<Array<{
-    questionId: string;
-    questionText: string;
-    answer: string;
-    feedback: string;
-    score: number;
-    suggestions: string[]
-  }>>([]);
-  
-  const [overallFeedback, setOverallFeedback] = useState<{
-    score: number;
-    strengths: string[];
-    areasForImprovement: string[];
-    nextSteps: string[];
-  } | null>(null);
 
   // refs
   const streamRef = useRef<MediaStream | null>(null);
@@ -152,6 +170,7 @@ export default function Page() {
             questionText: string;
           }) => {
             // TODO: Verify why this isn't being triggered
+            console.log("triggerQuestionAsked", parameters);
             // Store the current question for feedback
             setCurrentQuestion({
               id: parameters.questionId,

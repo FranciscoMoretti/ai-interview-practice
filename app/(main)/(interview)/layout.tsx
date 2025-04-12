@@ -34,7 +34,6 @@ export default function Layout({
       <div className="absolute inset-0 z-[-1]">
         <Snowfall />
       </div>
-      <MusicPlayer />
       <DisclaimerButton />
     </div>
   );

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mail, VideoIcon, VideoOffIcon, Download, RefreshCw } from "lucide-react";
+import { Mail, VideoIcon, VideoOffIcon, Download, RefreshCw, AudioLines } from "lucide-react";
 
 interface FeedbackItem {
   questionId: string;
@@ -256,19 +256,8 @@ export function InterviewCard({
                     endCall(false);
                   }}
                 >
-                  Save without Video
-                  <VideoOffIcon className="w-4 h-4 ml-2" />
-                </Button>
-                <Button
-                  variant="default"
-                  className="flex-1 px-4 py-2 rounded-full border-emerald-500 border-2 bg-emerald-900/90 hover:bg-emerald-950/90 text-white backdrop-blur-[16px] shadow-2xl"
-                  onClick={() => {
-                    setIsOpen(false);
-                    endCall();
-                  }}
-                >
-                  Save with Video
-                  <VideoIcon className="w-4 h-4 ml-2" />
+                  Save Conversation
+                  <AudioLines className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
                   variant="default"
