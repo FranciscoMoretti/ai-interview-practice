@@ -3,7 +3,7 @@
 import {
   getAgentConversation,
   getAgentConversationAudio,
-} from "@/app/(main)/(santa)/actions/actions";
+} from "@/app/(main)/(interview)/actions/actions";
 import { christmasFont } from "@/components/custom-fonts";
 import {
   Card,

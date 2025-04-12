@@ -1,6 +1,6 @@
 "use server";
 
-import { actionClient } from "@/app/(main)/(santa)/actions/safe-action";
+import { actionClient } from "@/app/(main)/(interview)/actions/safe-action";
 import { z } from "zod";
 import { ElevenLabsClient } from "elevenlabs";
 import { createClient } from "@supabase/supabase-js";

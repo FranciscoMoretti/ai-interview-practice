@@ -1,6 +1,6 @@
 "use client";
 
-import { getConversationCount } from "@/app/(main)/(santa)/actions/actions";
+import { getConversationCount } from "@/app/(main)/(interview)/actions/actions";
 import { christmasFont } from "@/components/custom-fonts";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";

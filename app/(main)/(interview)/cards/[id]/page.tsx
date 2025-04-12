@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { Suspense } from "react";
 import { Metadata } from "next";
 
-import { getConversationData } from "@/app/(main)/(santa)/actions/actions";
+import { getConversationData } from "@/app/(main)/(interview)/actions/actions";
 
 export default async function Page({
   params,

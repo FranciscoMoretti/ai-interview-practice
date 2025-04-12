@@ -4,7 +4,7 @@ import {
   getAgentSignedUrl,
   getSupabaseUploadSignedUrl,
   saveConversationData,
-} from "@/app/(main)/(santa)/actions/actions";
+} from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
 import { SantaCard } from "@/components/santa-card";
@@ -333,7 +333,7 @@ export default function Page() {
 
   return (
     <div className="overflow-hidden">
-      {/* Call Santa Button */}
+      {/* Start Interview Button */}
       <div className="flex flex-col items-center justify-center min-h-screen md:min-h-screen pt-0 md:pt-16">
         {conversation.status !== "connected" && !isEndingCall && (
           <CallButton
