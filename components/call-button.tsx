@@ -17,6 +17,14 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 
 interface CallButtonProps {
   status: "disconnected" | "connecting" | "connected" | "disconnecting";
@@ -28,9 +36,19 @@ interface CallButtonProps {
   language: string | null;
   setLanguage: (value: string) => void;
   languages: typeof LANGUAGES;
+  difficulty: string;
+  setDifficulty: (value: string) => void;
+  topic: string;
+  setTopic: (value: string) => void;
 }
 
 const RINGING_PHONE_AUDIO_DURATION = 6000;
+
+const DIFFICULTY_LEVELS = [
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+];
 
 export function CallButton({
   status,
@@ -42,6 +60,10 @@ export function CallButton({
   language,
   setLanguage,
   languages,
+  difficulty,
+  setDifficulty,
+  topic,
+  setTopic,
 }: CallButtonProps) {
   const [isCalling, setIsCalling] = useState(false);
   const [showAgeModal, setShowAgeModal] = useState(false);
@@ -101,7 +123,7 @@ export function CallButton({
         </div>
         {!isCalling && (
           <>
-            <span className="text-lg ml-10 font-semibold">Call Santa</span>
+            <span className="text-lg ml-10 font-semibold">Start Interview</span>
           </>
         )}
         {isCalling && (
@@ -131,14 +153,51 @@ export function CallButton({
       )}
 
       {!isCalling && (
-        <div className={"flex items-center gap-2 text-sm mt-2"}>
-          <LanguageDropdown
-            language={language}
-            setLanguage={setLanguage}
-            languages={languages}
-          />
+        <div className={"flex flex-col gap-3 mt-4"}>
+          <div className="flex items-center gap-2">
+            <Label htmlFor="language" className="text-white w-24">
+              Language:
+            </Label>
+            <LanguageDropdown
+              language={language}
+              setLanguage={setLanguage}
+              languages={languages}
+            />
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Label htmlFor="difficulty" className="text-white w-24">
+              Difficulty:
+            </Label>
+            <Select value={difficulty} onValueChange={setDifficulty}>
+              <SelectTrigger className="w-full bg-white/10 border-white/20 text-white">
+                <SelectValue placeholder="Select difficulty" />
+              </SelectTrigger>
+              <SelectContent>
+                {DIFFICULTY_LEVELS.map((level) => (
+                  <SelectItem key={level.value} value={level.value}>
+                    {level.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Label htmlFor="topic" className="text-white w-24">
+              Topic:
+            </Label>
+            <Input
+              id="topic"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              className="bg-white/10 border-white/20 text-white"
+              placeholder="e.g. JavaScript, React, Python"
+            />
+          </div>
         </div>
       )}
+      
       <div className="flex items-center space-x-2 pt-3">
         <Switch
           id="airplane-mode"

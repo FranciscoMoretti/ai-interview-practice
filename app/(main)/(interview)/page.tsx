@@ -7,7 +7,7 @@ import {
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
-import { SantaCard } from "@/components/santa-card";
+import { InterviewCard } from "@/components/santa-card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useConversation } from "@11labs/react";
@@ -18,6 +18,10 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { LANGUAGES } from "@/components/language-dropdown";
+
+
+const NUM_QUESTIONS = 5
+
 export default function Page() {
   const conversation = useConversation();
   const router = useRouter();
@@ -27,6 +31,8 @@ export default function Page() {
   const [hasVideoAccess, setHasVideoAccess] = useState(false);
   const [isVideoEnabled, setIsVideoEnabled] = useState(false);
   const [language, setLanguage] = useState<string | null>(null);
+  const [difficulty, setDifficulty] = useState<string>("intermediate");
+  const [topic, setTopic] = useState<string>("JavaScript");
 
   useEffect(() => {
     try {
@@ -65,6 +71,36 @@ export default function Page() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
   const [isPreviewVideoLoading, setIsPreviewVideoLoading] = useState(true);
+  
+  // Interview feedback state
+  const [currentQuestion, setCurrentQuestion] = useState<{
+    id: string;
+    text: string;
+    category: string;
+  } | null>(null);
+  
+  const [feedback, setFeedback] = useState<{
+    questionId: string;
+    text: string;
+    score: number;
+    suggestions: string[]
+  } | null>(null);
+  
+  const [feedbackHistory, setFeedbackHistory] = useState<Array<{
+    questionId: string;
+    questionText: string;
+    answer: string;
+    feedback: string;
+    score: number;
+    suggestions: string[]
+  }>>([]);
+  
+  const [overallFeedback, setOverallFeedback] = useState<{
+    score: number;
+    strengths: string[];
+    areasForImprovement: string[];
+    nextSteps: string[];
+  } | null>(null);
 
   // refs
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -213,10 +249,14 @@ export default function Page() {
         overrides: {
           agent: {
             language: language ?? ("en" as any),
-            firstMessage:
-              LANGUAGES.find(l => l.code === language)?.firstSentence ??
-              LANGUAGES[0].firstSentence,
+            firstMessage: LANGUAGES.find(l => l.code === language)?.firstSentence ??
+            LANGUAGES[0].firstSentence,
           },
+        },
+        dynamicVariables:{
+          difficulty: difficulty,
+          topic: topic,
+          numQuestions: NUM_QUESTIONS
         },
         onConnect: ({ conversationId }) => {
           setConversationId(conversationId);
@@ -243,6 +283,63 @@ export default function Page() {
               prevWishlist.filter(item => item.key !== parameters.itemKey)
             );
           },
+          // New interview practice tools
+          triggerQuestionAsked: async (parameters: {
+            questionId: string;
+            questionText: string;
+          }) => {
+            // Store the current question for feedback
+            setCurrentQuestion({
+              id: parameters.questionId,
+              text: parameters.questionText,
+              category: topic
+            });
+          },
+          triggerAnswerFeedback: async (parameters: {
+            questionId: string;
+            answer: string;
+            feedback: string;
+            score: number;
+            suggestions: string[]
+          }) => {
+            // Store the feedback for the current question
+            setFeedback({
+              questionId: parameters.questionId,
+              text: parameters.feedback,
+              score: parameters.score,
+              suggestions: parameters.suggestions
+            });
+            
+            // Add to the feedback history
+            setFeedbackHistory(prev => [
+              ...prev,
+              {
+                questionId: parameters.questionId,
+                questionText: currentQuestion?.text || "",
+                answer: parameters.answer,
+                feedback: parameters.feedback,
+                score: parameters.score,
+                suggestions: parameters.suggestions
+              }
+            ]);
+          },
+          triggerInterviewComplete: async (parameters: {
+            overallScore: number;
+            strengths: string[];
+            areasForImprovement: string[];
+            nextSteps: string[];
+          }) => {
+            // Store the overall interview feedback
+            setOverallFeedback({
+              score: parameters.overallScore,
+              strengths: parameters.strengths,
+              areasForImprovement: parameters.areasForImprovement,
+              nextSteps: parameters.nextSteps
+            });
+            
+            // Open the feedback card
+            setIsCardOpen(true);
+          }
         },
       });
     } catch (err) {
@@ -346,6 +443,10 @@ export default function Page() {
             language={language}
             setLanguage={setLanguage}
             languages={LANGUAGES}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+            topic={topic}
+            setTopic={setTopic}
           />
         )}
 
@@ -480,13 +581,14 @@ export default function Page() {
           </div>
         )}
         {conversation.status === "connected" && (
-          <SantaCard
+          <InterviewCard
             conversation={conversation}
             endCall={endCall}
             isOpen={isCardOpen}
             setIsOpen={setIsCardOpen}
             name={name}
-            wishlist={wishlist}
+            feedbackHistory={feedbackHistory}
+            overallFeedback={overallFeedback}
           />
         )}
       </div>

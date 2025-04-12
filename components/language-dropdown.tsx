@@ -13,180 +13,187 @@ export const LANGUAGES = [
     code: "en",
     name: "English",
     firstSentence:
-      "Ho, ho, ho! Merry Christmas, my friend. Tell me, what is your name?",
+      "Hello! I'm your AI interview coach. I'll be conducting your {{topic}} interview today. What's your name?",
   },
   {
     code: "ar",
     name: "Arabic",
-    firstSentence: "هو، هو، هو! عيد ميلاد مجيد يا صديقي. قل لي، ما اسمك؟",
+    firstSentence:
+      "مرحباً! أنا مدرب المقابلات الذكي الخاص بك. سأقوم بإجراء مقابلة {{topic}} اليوم. ما اسمك؟",
   },
   {
     code: "bg",
     name: "Bulgarian",
     firstSentence:
-      "Хо, хо, хо! Весела Коледа, приятелю. Кажи ми, как се казваш?",
+      "Здравейте! Аз съм вашият AI интервю треньор. Ще проведа вашата {{topic}} интервю днес. Как се казвате?",
   },
   {
     code: "zh",
     name: "Chinese",
-    firstSentence: "呵呵呵！圣诞快乐，我的朋友。告诉我，你叫什么名字？",
+    firstSentence:
+      "你好！我是你的AI面试教练。今天我将进行你的{{topic}}面试。你叫什么名字？",
   },
   {
     code: "hr",
     name: "Croatian",
     firstSentence:
-      "Ho, ho, ho! Sretan Božić, prijatelju. Reci mi, kako se zoveš?",
+      "Pozdrav! Ja sam vaš AI trener za intervjue. Danas ću voditi vaš {{topic}} intervju. Kako se zovete?",
   },
   {
     code: "cs",
     name: "Czech",
     firstSentence:
-      "Ho, ho, ho! Veselé Vánoce, příteli. Řekni mi, jak se jmenuješ?",
+      "Ahoj! Jsem váš AI kouč pro pohovory. Dnes budu vést váš {{topic}} pohovor. Jak se jmenujete?",
   },
   {
     code: "da",
     name: "Danish",
     firstSentence:
-      "Ho, ho, ho! Glædelig jul, min ven. Fortæl mig, hvad er dit navn?",
+      "Hej! Jeg er din AI-interviewtræner. Jeg vil føre dit {{topic}}-interview i dag. Hvad hedder du?",
   },
   {
     code: "nl",
     name: "Dutch",
     firstSentence:
-      "Ho, ho, ho! Vrolijk kerstfeest, mijn vriend. Vertel me, wat is je naam?",
+      "Hallo! Ik ben je AI-interviewcoach. Ik ga vandaag je {{topic}}-interview afnemen. Wat is je naam?",
   },
   {
     code: "fi",
     name: "Finnish",
     firstSentence:
-      "Ho, ho, ho! Hyvää joulua, ystäväni. Kerro minulle, mikä sinun nimesi on?",
+      "Hei! Olen sinun tekoälyhaastattelukouluttajasi. Käyn läpi {{topic}}-haastattelusi tänään. Mikä on nimesi?",
   },
   {
     code: "fr",
     name: "French",
     firstSentence:
-      "Ho, ho, ho ! Joyeux Noël, mon ami. Dis-moi, quel est ton nom ?",
+      "Bonjour! Je suis votre coach d'entretien IA. Je vais mener votre entretien {{topic}} aujourd'hui. Quel est votre nom?",
   },
   {
     code: "de",
     name: "German",
     firstSentence:
-      "Ho, ho, ho! Frohe Weihnachten, mein Freund. Sag mir, wie heißt du?",
+      "Hallo! Ich bin Ihr KI-Interview-Coach. Ich werde heute Ihr {{topic}}-Interview führen. Wie heißen Sie?",
   },
   {
     code: "el",
     name: "Greek",
     firstSentence:
-      "Χο, χο, χο! Καλά Χριστούγεννα, φίλε μου. Πες μου, πώς σε λένε;",
+      "Γεια σας! Είμαι ο AI προπονητής συνεντεύξεων σας. Θα διεξάγω τη συνέντευξη {{topic}} σας σήμερα. Πώς σας λένε;",
   },
   {
     code: "hi",
     name: "Hindi",
     firstSentence:
-      "हो, हो, हो! मेरी क्रिसमस, मेरे दोस्त। मुझे बताओ, तुम्हारा नाम क्या है?",
+      "नमस्ते! मैं आपका AI इंटरव्यू कोच हूं। आज मैं आपका {{topic}} इंटरव्यू आयोजित करूंगा। आपका नाम क्या है?",
   },
   {
     code: "hu",
     name: "Hungarian",
-    firstSentence: "Ho, ho, ho! Boldog karácsonyt, barátom. Mondd, mi a neved?",
+    firstSentence:
+      "Üdvözlöm! Én vagyok az Ön AI interjúkészítője. Ma fogom vezetni az Ön {{topic}} interjúját. Mi a neve?",
   },
   {
     code: "id",
     name: "Indonesian",
     firstSentence:
-      "Ho, ho, ho! Selamat Natal, temanku. Katakan padaku, siapa namamu?",
+      "Halo! Saya adalah pelatih wawancara AI Anda. Saya akan melakukan wawancara {{topic}} Anda hari ini. Siapa nama Anda?",
   },
   {
     code: "it",
     name: "Italian",
-    firstSentence: "Ho, ho, ho! Buon Natale, amico mio. Dimmi, come ti chiami?",
+    firstSentence:
+      "Ciao! Sono il tuo coach per i colloqui AI. Oggi condurrò il tuo colloquio {{topic}}. Come ti chiami?",
   },
   {
     code: "ja",
     name: "Japanese",
     firstSentence:
-      "ホーホーホー！メリークリスマス、私の友よ。教えて、お名前は何ですか？",
+      "こんにちは！私はあなたのAI面接コーチです。今日は{{topic}}の面接を行います。お名前を教えてください。",
   },
   {
     code: "ko",
     name: "Korean",
     firstSentence:
-      "호, 호, 호! 메리 크리스마스, 내 친구야. 말해줘, 네 이름이 뭐니?",
+      "안녕하세요! 저는 귀하의 AI 면접 코치입니다. 오늘 {{topic}} 면접을 진행할 예정입니다. 이름이 어떻게 되시나요?",
   },
   {
     code: "ms",
     name: "Malay",
     firstSentence:
-      "Ho, ho, ho! Selamat Hari Natal, kawan. Beritahu saya, siapa nama awak?",
+      "Hai! Saya adalah jurulatih temuduga AI anda. Saya akan menjalankan temuduga {{topic}} anda hari ini. Apa nama anda?",
   },
   {
     code: "no",
     name: "Norwegian",
-    firstSentence: "Ho, ho, ho! God jul, min venn. Fortell meg, hva heter du?",
+    firstSentence:
+      "Hei! Jeg er din AI-intervjutrener. Jeg skal gjennomføre ditt {{topic}}-intervju i dag. Hva heter du?",
   },
   {
     code: "pl",
     name: "Polish",
     firstSentence:
-      "Ho, ho, ho! Wesołych Świąt, mój przyjacielu. Powiedz mi, jak masz na imię?",
+      "Cześć! Jestem twoim trenerem rozmów kwalifikacyjnych AI. Dziś przeprowadzę twoją rozmowę kwalifikacyjną {{topic}}. Jak masz na imię?",
   },
   {
     code: "pt",
     name: "Portuguese",
     firstSentence:
-      "Ho, ho, ho! Feliz Natal, meu amigo. Diga-me, qual é o seu nome?",
+      "Olá! Sou seu treinador de entrevistas com IA. Vou conduzir sua entrevista de {{topic}} hoje. Qual é o seu nome?",
   },
   {
     code: "ro",
     name: "Romanian",
     firstSentence:
-      "Ho, ho, ho! Crăciun fericit, prietenul meu. Spune-mi, cum te cheamă?",
+      "Bună! Sunt antrenorul tău de interviuri AI. Voi conduce interviul tău {{topic}} astăzi. Cum te numești?",
   },
   {
     code: "ru",
     name: "Russian",
     firstSentence:
-      "Хо, хо, хо! С Рождеством, мой друг. Скажи мне, как тебя зовут?",
+      "Здравствуйте! Я ваш AI-тренер по собеседованиям. Сегодня я проведу ваше собеседование по {{topic}}. Как вас зовут?",
   },
   {
     code: "sk",
     name: "Slovak",
     firstSentence:
-      "Ho, ho, ho! Veselé Vianoce, priateľ môj. Povedz mi, ako sa voláš?",
+      "Ahoj! Som váš AI tréner pohovorov. Dnes budem viesť váš {{topic}} pohovor. Ako sa voláte?",
   },
   {
     code: "es",
     name: "Spanish",
     firstSentence:
-      "¡Jo, jo, jo! Feliz Navidad, mi amigo. Dime, ¿cómo te llamas?",
+      "¡Hola! Soy tu entrenador de entrevistas con IA. Hoy realizaré tu entrevista de {{topic}}. ¿Cómo te llamas?",
   },
   {
     code: "sv",
     name: "Swedish",
-    firstSentence: "Ho, ho, ho! God jul, min vän. Säg mig, vad heter du?",
+    firstSentence:
+      "Hej! Jag är din AI-intervjutränare. Jag ska genomföra ditt {{topic}}-intervju idag. Vad heter du?",
   },
   {
     code: "ta",
     name: "Tamil",
     firstSentence:
-      "ஹோ, ஹோ, ஹோ! கிறிஸ்துமஸ் வாழ்த்துக்கள், என் நண்பரே. சொல்லுங்கள், உங்கள் பெயர் என்ன?",
+      "வணக்கம்! நான் உங்கள் AI நேர்காணல் பயிற்சியாளர். இன்று நான் உங்கள் {{topic}} நேர்காணலை நடத்துவேன். உங்கள் பெயர் என்ன?",
   },
   {
     code: "tr",
     name: "Turkish",
-    firstSentence: "Ho, ho, ho! Mutlu Noeller, dostum. Söyle bakalım, adın ne?",
+    firstSentence:
+      "Merhaba! Ben sizin AI mülakat koçunuzum. Bugün {{topic}} mülakatınızı gerçekleştireceğim. Adınız nedir?",
   },
   {
     code: "uk",
     name: "Ukrainian",
     firstSentence:
-      "Хо, хо, хо! З Різдвом, мій друже. Скажи мені, як тебе звати?",
+      "Вітаю! Я ваш AI-тренер зі співбесід. Сьогодні я проведу вашу співбесіду з {{topic}}. Як вас звати?",
   },
   {
     code: "vi",
     name: "Vietnamese",
     firstSentence:
-      "Ho, ho, ho! Giáng sinh vui vẻ, bạn của tôi. Hãy cho tôi biết, tên bạn là gì?",
+      "Xin chào! Tôi là huấn luyện viên phỏng vấn AI của bạn. Hôm nay tôi sẽ tiến hành cuộc phỏng vấn {{topic}} của bạn. Tên bạn là gì?",
   },
 ];
 
