@@ -11,22 +11,8 @@ import {
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Mail, Download, RefreshCw, AudioLines } from "lucide-react";
-
-interface FeedbackItem {
-  questionId: string;
-  questionText: string;
-  answer: string;
-  feedback: string;
-  score: number;
-  suggestions: string[]
-}
-
-interface OverallFeedback {
-  score: number;
-  strengths: string[];
-  areasForImprovement: string[];
-  nextSteps: string[];
-}
+import { downloadFeedbackAsMarkdown } from "@/lib/download-feedback";
+import { FeedbackItem, OverallFeedback } from "@/types/interview";
 
 interface InterviewCardProps {
   name: string | null;
@@ -259,28 +245,7 @@ export function InterviewCard({
                   variant="default"
                   className="flex-1 px-4 py-2 rounded-full border-purple-500 border-2 bg-purple-900/90 hover:bg-purple-950/90 text-white backdrop-blur-[16px] shadow-2xl"
                   onClick={() => {
-                    // Function to download feedback as JSON
-                    const downloadFeedback = () => {
-                      const feedbackData = {
-                        name,
-                        overallFeedback,
-                        feedbackHistory
-                      };
-                      
-                      const dataStr = JSON.stringify(feedbackData, null, 2);
-                      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                      const url = URL.createObjectURL(dataBlob);
-                      
-                      const link = document.createElement('a');
-                      link.href = url;
-                      link.download = `interview-feedback-${new Date().toISOString().split('T')[0]}.json`;
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                      URL.revokeObjectURL(url);
-                    };
-                    
-                    downloadFeedback();
+                    downloadFeedbackAsMarkdown(name, overallFeedback, feedbackHistory);
                   }}
                 >
                   Download Feedback

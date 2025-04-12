@@ -15,18 +15,19 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { LANGUAGES } from "@/components/language-dropdown";
+import { FeedbackHistoryState, OverallFeedbackState, Question } from "@/types/interview";
 
 
 const NUM_QUESTIONS = 3
 
-const DUMMY_QUESTION = [
+const DUMMY_QUESTION: Question[] = [
   {
     questionId: "1",
     questionText: "What is your name?",
     answer: "John Doe",
   },
 ]
-const DUMMY_FEEDBACK_HISTORY = [
+const DUMMY_FEEDBACK_HISTORY: FeedbackHistoryState[] = [
   {
     questionId: "1",
     questionText: "What is your name?",
@@ -44,7 +45,7 @@ const DUMMY_FEEDBACK_HISTORY = [
   }
 ]
 
-const DUMMY_OVERALL_FEEDBACK = {
+const DUMMY_OVERALL_FEEDBACK: OverallFeedbackState = {
   score: 5,
   strengths: ["Good job!", "Be more concise", "Use more active verbs"],
   areasForImprovement: ["Be more concise", "Use more active verbs"],
@@ -83,21 +84,9 @@ export default function Page() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
 
-  const [feedbackHistory, setFeedbackHistory] = useState<Array<{
-    questionId: string;
-    questionText: string;
-    answer: string;
-    feedback: string;
-    score: number;
-    suggestions: string[]
-  }>>(DUMMY_FEEDBACK_HISTORY);
+  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackHistoryState[]>(DUMMY_FEEDBACK_HISTORY);
   
-  const [overallFeedback, setOverallFeedback] = useState<{
-    score: number;
-    strengths: string[];
-    areasForImprovement: string[];
-    nextSteps: string[];
-  } | null>(DUMMY_OVERALL_FEEDBACK);
+  const [overallFeedback, setOverallFeedback] = useState<OverallFeedbackState | null>(DUMMY_OVERALL_FEEDBACK);
 
   useEffect(() => {
     try {
