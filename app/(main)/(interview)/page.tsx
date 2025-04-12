@@ -2,7 +2,6 @@
 
 import {
   getAgentSignedUrl,
-  getSupabaseUploadSignedUrl,
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
@@ -11,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useConversation } from "@11labs/react";
 import { motion } from "framer-motion";
-import { VideoIcon, VideoOffIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -27,8 +25,6 @@ export default function Page() {
 
   // permission state
   const [hasAudioAccess, setHasAudioAccess] = useState(false);
-  const [hasVideoAccess, setHasVideoAccess] = useState(false);
-  const [isVideoEnabled, setIsVideoEnabled] = useState(false);
   const [language, setLanguage] = useState<string | null>(null);
   const [difficulty, setDifficulty] = useState<string>("intermediate");
   const [topic, setTopic] = useState<string>("JavaScript");
@@ -66,7 +62,6 @@ export default function Page() {
   const [name, setName] = useState<string | null>(null);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
-  const [isPreviewVideoLoading, setIsPreviewVideoLoading] = useState(true);
   
   // Interview feedback state
   const [currentQuestion, setCurrentQuestion] = useState<{
@@ -92,9 +87,6 @@ export default function Page() {
   } | null>(null);
 
   // refs
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
   // audio stream handling
@@ -124,82 +116,6 @@ export default function Page() {
     }
   };
 
-  // video stream handling
-  const requestVideoPermissions = async () => {
-    try {
-      if (!streamRef.current) {
-        throw new Error("Audio stream not initialized");
-      }
-
-      const videoStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false,
-      });
-
-      // Add video track to existing audio stream
-      const videoTrack = videoStream.getVideoTracks()[0];
-      streamRef.current.addTrack(videoTrack);
-      setHasVideoAccess(true);
-      return streamRef.current;
-    } catch (err) {
-      console.error(err);
-      toast.error("Unable to access camera");
-      setHasVideoAccess(false);
-      setIsVideoEnabled(false);
-      return streamRef.current;
-    }
-  };
-
-  const toggleVideoEnabled = async () => {
-    const newVideoState = !isVideoEnabled;
-    setIsVideoEnabled(newVideoState);
-
-    if (newVideoState) {
-      // Adding video
-      if (!hasVideoAccess) {
-        await requestVideoPermissions();
-      } else if (streamRef.current) {
-        // Re-enable existing video track
-        streamRef.current
-          .getVideoTracks()
-          .forEach(track => (track.enabled = true));
-      }
-    } else {
-      // Removing video
-      if (streamRef.current) {
-        streamRef.current
-          .getVideoTracks()
-          .forEach(track => (track.enabled = false));
-      }
-    }
-  };
-
-  // Update the useEffect
-  useEffect(() => {
-    let mounted = true;
-    const setupStream = async () => {
-      const stream = await requestAudioPermissions();
-      if (stream && videoRef.current && mounted) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-        setIsPreviewVideoLoading(false);
-      } else {
-        setIsPreviewVideoLoading(false);
-      }
-    };
-    setupStream();
-    return () => {
-      mounted = false;
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => {
-          track.stop();
-        });
-        streamRef.current = null;
-      }
-    };
-  }, []);
-
-
   // call handling
   const startCall = async () => {
     try {
@@ -224,7 +140,6 @@ export default function Page() {
         },
         onConnect: ({ conversationId }) => {
           setConversationId(conversationId);
-          startRecordingVideo();
         },
         clientTools: {
           triggerName: async (parameters: { name: string }) => {
@@ -289,7 +204,7 @@ export default function Page() {
       toast.error("Failed to start conversation.");
     }
   };
-  const endCall = async (withVideo: boolean = true) => {
+  const endCall = async () => {
     if (!conversationId) {
       toast.error("Conversation not found");
       return;
@@ -297,49 +212,6 @@ export default function Page() {
     setIsEndingCall(true);
 
     try {
-      if (withVideo) {
-        if (
-          mediaRecorderRef.current &&
-          mediaRecorderRef.current.state !== "inactive"
-        ) {
-          mediaRecorderRef.current.stop();
-          await new Promise(resolve =>
-            mediaRecorderRef.current?.addEventListener("stop", resolve, {
-              once: true,
-            })
-          );
-        }
-
-        const blob = new Blob(chunksRef.current, { type: "video/webm" });
-        if (blob.size < 1) {
-          throw new Error("No video recorded to upload!");
-        }
-
-        const response = await getSupabaseUploadSignedUrl({
-          conversationId,
-        });
-
-        if (!response?.data) {
-          throw new Error("Failed to retrieve a signed upload URL.");
-        }
-        const { signedUrl, token } = response.data;
-
-        const uploadResponse = await fetch(signedUrl, {
-          method: "PUT",
-          headers: {
-            "Content-Type": blob.type,
-            Authorization: `Bearer ${token}`,
-          },
-          body: blob,
-        });
-
-        if (!uploadResponse.ok) {
-          throw new Error("File upload failed.");
-        }
-        // success
-        toast.success("Video uploaded successfully!");
-      }
-
       // TODO: Save conversation to DB
       console.log(feedbackHistory)
       console.log(overallFeedback)
@@ -359,20 +231,6 @@ export default function Page() {
     }
   };
 
-  const startRecordingVideo = () => {
-    if (!streamRef.current) {
-      toast.error("Unable to record video");
-      return;
-    }
-    chunksRef.current = [];
-    const mediaRecorder = new MediaRecorder(streamRef.current);
-    mediaRecorderRef.current = mediaRecorder;
-    mediaRecorder.ondataavailable = event => {
-      chunksRef.current.push(event.data);
-    };
-    mediaRecorder.start();
-  };
-
   return (
     <div className="overflow-hidden">
       {/* Start Interview Button */}
@@ -383,8 +241,6 @@ export default function Page() {
             startCall={startCall}
             hasMediaAccess={hasAudioAccess}
             requestMediaPermissions={requestAudioPermissions}
-            isVideoEnabled={isVideoEnabled}
-            toggleVideoEnabled={toggleVideoEnabled}
             language={language}
             setLanguage={setLanguage}
             languages={LANGUAGES}
@@ -434,35 +290,6 @@ export default function Page() {
               />
             </motion.div>
           )}
-
-          <motion.div
-            className={cn(
-              "w-32 h-32 rounded-full overflow-hidden border-4 border-red-500 border-opacity-50 shadow-lg relative",
-              (!hasVideoAccess || !isVideoEnabled || isEndingCall) && "hidden"
-            )}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {isPreviewVideoLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
-              </div>
-            )}
-            <video
-              ref={videoRef}
-              autoPlay
-              playsInline
-              muted
-              className="w-full h-full object-cover opacity-90"
-              onLoadedData={() => {
-                setIsPreviewVideoLoading(false);
-              }}
-              onError={e => {
-                console.error(e);
-                setIsPreviewVideoLoading(false);
-              }}
-            />
-          </motion.div>
         </div>
 
         {isEndingCall && (
@@ -481,38 +308,13 @@ export default function Page() {
               isCardOpen ? "invisible" : "visible"
             )}
           >
-            {isVideoEnabled && (
-              <>
-                <Button
-                  variant="default"
-                  className="px-4 py-2 rounded-full border-emerald-500 border-2 hover:bg-emerald-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
-                  onClick={() => endCall()}
-                >
-                  Save Card with Video
-                  <VideoIcon className="w-4 h-4" />
-                </Button>
-
-                <Button
-                  variant="default"
-                  className="px-4 py-2 rounded-full border-blue-500 border-2 hover:bg-blue-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
-                  onClick={() => endCall(false)}
-                >
-                  Save Card without Video
-                  <VideoOffIcon className="w-4 h-4" />
-                </Button>
-              </>
-            )}
-            {!isVideoEnabled && (
-              <>
-                <Button
-                  variant="default"
-                  className="px-4 py-2 rounded-full border-blue-500 border-2 hover:bg-blue-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
-                  onClick={() => endCall(false)}
-                >
-                  Save Card
-                </Button>
-              </>
-            )}
+            <Button
+              variant="default"
+              className="px-4 py-2 rounded-full border-blue-500 border-2 hover:bg-blue-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
+              onClick={() => endCall()}
+            >
+              Save Card
+            </Button>
             <Button
               variant="default"
               className="px-4 py-2 rounded-full border-gray-500 border-2 hover:bg-gray-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"

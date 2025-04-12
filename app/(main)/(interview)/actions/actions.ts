@@ -131,32 +131,6 @@ export const getAgentConversationAudio = actionClient
 
 const BUCKET_NAME = "media";
 
-export const getSupabaseUploadSignedUrl = actionClient
-  .schema(z.object({ conversationId: z.string() }))
-  .action(async ({ parsedInput: { conversationId } }) => {
-    const supabaseUrl = process.env.SUPABASE_URL;
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-    if (!supabaseUrl || !serviceRoleKey) {
-      throw new Error("Environment variables are not set");
-    }
-
-    const supabase = createClient(supabaseUrl, serviceRoleKey);
-
-    const filePath = `${BUCKET_NAME}/${conversationId}.mp4`;
-
-    // Generate the signed upload URL
-    const { data, error } = await supabase.storage
-      .from(BUCKET_NAME)
-      .createSignedUploadUrl(filePath);
-
-    if (error) {
-      throw new Error(`Failed to create signed upload URL: ${error.message}`);
-    }
-
-    return data;
-  });
-
 export const saveConversationData = actionClient
   .schema(
     z.object({

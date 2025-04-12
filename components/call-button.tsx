@@ -31,8 +31,6 @@ interface CallButtonProps {
   startCall: () => void;
   hasMediaAccess: boolean;
   requestMediaPermissions: () => void;
-  isVideoEnabled: boolean;
-  toggleVideoEnabled: (value: boolean) => void;
   language: string | null;
   setLanguage: (value: string) => void;
   languages: typeof LANGUAGES;
@@ -55,8 +53,6 @@ export function CallButton({
   startCall,
   hasMediaAccess,
   requestMediaPermissions,
-  isVideoEnabled,
-  toggleVideoEnabled,
   language,
   setLanguage,
   languages,
@@ -202,18 +198,6 @@ export function CallButton({
         </div>
       )}
       
-      <div className="flex items-center space-x-2 pt-3">
-        <Switch
-          id="airplane-mode"
-          className="bg-red-500"
-          checked={isVideoEnabled}
-          onCheckedChange={toggleVideoEnabled}
-        />
-        <Label htmlFor="airplane-mode" className="text-white">
-          Enable Video
-        </Label>
-      </div>
-
       <Dialog open={showAgeModal} onOpenChange={setShowAgeModal}>
         <DialogContent>
           <DialogHeader>
