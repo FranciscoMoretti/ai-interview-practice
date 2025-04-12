@@ -19,6 +19,32 @@ import { LANGUAGES } from "@/components/language-dropdown";
 
 const NUM_QUESTIONS = 3
 
+const DUMMY_QUESTION = [
+  {
+    questionId: "1",
+    questionText: "What is your name?",
+    answer: "John Doe",
+  },
+]
+const DUMMY_FEEDBACK_HISTORY = [
+  {
+    questionId: "1",
+    questionText: "What is your name?",
+    answer: "John Doe",
+    feedback: "Good job!",
+    score: 5,
+    suggestions: ["Be more concise", "Use more active verbs"],
+  },{
+    questionId: "2",
+    questionText: "What is your name?",
+    answer: "John Doe",
+    feedback: "Good job!",
+    score: 5,
+    suggestions: ["Be more concise", "Use more active verbs"],
+  }
+]
+
+
 export default function Page() {
   const conversation = useConversation({
     onDisconnect: (disconnectionDetails)   => {
@@ -50,13 +76,6 @@ export default function Page() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
 
-    // Interview feedback state
-  const [currentQuestion, setCurrentQuestion] = useState<{
-    id: string;
-    text: string;
-    category: string;
-  } | null>(null);
-  
   const [feedbackHistory, setFeedbackHistory] = useState<Array<{
     questionId: string;
     questionText: string;
@@ -64,7 +83,7 @@ export default function Page() {
     feedback: string;
     score: number;
     suggestions: string[]
-  }>>([]);
+  }>>(DUMMY_FEEDBACK_HISTORY);
   
   const [overallFeedback, setOverallFeedback] = useState<{
     score: number;
@@ -172,11 +191,17 @@ export default function Page() {
             // TODO: Verify why this isn't being triggered
             console.log("triggerQuestionAsked", parameters);
             // Store the current question for feedback
-            setCurrentQuestion({
-              id: parameters.questionId,
-              text: parameters.questionText,
-              category: topic
-            });
+            setFeedbackHistory(prev => [
+              ...prev,
+              {
+                questionId: parameters.questionId,
+                questionText: parameters.questionText,
+                answer: "",
+                feedback: "",
+                score: 0,
+                suggestions: []
+              }
+            ]);
           },
           triggerAnswerFeedback: async (parameters: {
             questionId: string;
@@ -187,17 +212,20 @@ export default function Page() {
           }) => {
 
             // Add to the feedback history
-            setFeedbackHistory(prev => [
-              ...prev,
+            setFeedbackHistory(prev => {
+              const lastQuestion = prev[prev.length - 1];
+              return [
+              ...prev.slice(0, prev.length - 1),
               {
                 questionId: parameters.questionId,
-                questionText: currentQuestion?.text || "",
+                questionText: lastQuestion.questionText || "",
                 answer: parameters.answer,
                 feedback: parameters.feedback,
                 score: parameters.score,
                 suggestions: parameters.suggestions
               }
-            ]);
+            ]
+          });
           },
           triggerInterviewComplete: async (parameters: {
             overallScore: number;
@@ -250,6 +278,7 @@ export default function Page() {
     }
   };
 
+  conversation.status = "connected"
   return (
     <div className="overflow-hidden">
       {/* Start Interview Button */}

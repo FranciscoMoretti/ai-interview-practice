@@ -77,16 +77,15 @@ export function InterviewCard({
         <DrawerContent
           className={cn("mx-auto max-w-4xl px-6")}
         >
-          <div className="container mx-auto">
+          <div className="container mx-auto flex flex-col items-stretch gap-4 px-6">
             <DrawerHeader>
               <DrawerTitle className="text-2xl font-bold text-blue-600 text-center">
                 {name ? `${name}'s Interview Feedback` : "Interview Feedback"}k
               </DrawerTitle>
               <hr className="border-t-2 border-blue-300 my-2 opacity-20" />
             </DrawerHeader>
-            
             {overallFeedback && (
-              <div className="max-w-2xl mx-auto bg-white px-8 py-5 rounded-lg mb-6">
+              <div className="max-w-2xl mx-auto bg-white rounded-lg mb-6 ">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold text-gray-800">Overall Performance</h2>
@@ -166,14 +165,13 @@ export function InterviewCard({
               </div>
             )}
             
-            <div className="max-w-2xl mx-auto bg-white px-8 py-5 rounded-lg">
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">Question-by-Question Feedback</h2>
+            <div className="max-w-2xl mx-auto bg-white rounded-lg w-full">
               
               {feedbackHistory.length === 0 ? (
                 <p className="text-gray-500 italic">No feedback available yet. Complete the interview to see your feedback.</p>
               ) : (
                 <div className="space-y-6">
-                  {feedbackHistory.map((item, index) => (
+                  {feedbackHistory.slice(-1).map((item, index) => (
                     <motion.div
                       key={item.questionId}
                       initial={{ opacity: 0, y: 20 }}
@@ -186,16 +184,13 @@ export function InterviewCard({
                       className="border border-gray-200 rounded-lg p-4"
                     >
                       <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-lg font-semibold text-gray-800">Question {index + 1}</h3>
+                        <h3 className="text-lg font-semibold text-gray-800">Question {feedbackHistory.length - index} : {item.questionText}</h3>
                         <div className="text-lg font-bold text-blue-600">
                           {item.score}/10
                         </div>
                       </div>
                       
-                      <div className="bg-gray-50 p-3 rounded-md mb-3">
-                        <p className="text-gray-700">{item.questionText}</p>
-                      </div>
-                      
+                        <h4 className="text-md font-semibold text-gray-700 mb-1">Answer</h4>
                       <div className="bg-gray-50 p-3 rounded-md mb-3"> 
                         <p className="text-gray-700">{item.answer}</p>
                       </div>
@@ -230,8 +225,8 @@ export function InterviewCard({
                 </span>{" "}
                 by{" "}
                 <strong>
-                  <a href="https://elevenlabs.io" target="_blank">
-                    ElevenLabs
+                  <a href="https://github.com/franciscoMoretti" target="_blank">
+                    Francisco Moretti
                   </a>
                 </strong>
               </span>
@@ -256,7 +251,7 @@ export function InterviewCard({
                     endCall(false);
                   }}
                 >
-                  Save Conversation
+                  Save Audio
                   <AudioLines className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
