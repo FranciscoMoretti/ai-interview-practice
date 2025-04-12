@@ -8,7 +8,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative min-h-screen overflow-hidden font-[family-name:var(--font-geist-sans)]">
+    <div className="relative min-h-screen bg-background overflow-hidden font-[family-name:var(--font-geist-sans)]">
       <div className="absolute top-0 left-0 right-0 flex justify-between p-4 z-10">
         <Link href="/" className="flex items-center gap-2">
           <LogoIcon />
@@ -22,16 +22,7 @@ export default function Layout({
         </div>
       </main>
 
-      <Image
-        className="absolute inset-0 z-[-2]"
-        src="/assets/background.png"
-        alt="Background"
-        fill
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-        }}
-      />
+
       <DisclaimerButton />
     </div>
   );

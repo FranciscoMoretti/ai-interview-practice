@@ -86,7 +86,7 @@ export default function Page() {
 
   const [feedbackHistory, setFeedbackHistory] = useState<FeedbackHistoryState[]>(DUMMY_FEEDBACK_HISTORY);
   
-  const [overallFeedback, setOverallFeedback] = useState<OverallFeedbackState | null>(DUMMY_OVERALL_FEEDBACK);
+  const [overallFeedback, setOverallFeedback] = useState<OverallFeedbackState | null>(null);
 
   useEffect(() => {
     try {
@@ -116,8 +116,6 @@ export default function Page() {
     }
   }, [language]);
 
-
-  
 
   // refs
   const streamRef = useRef<MediaStream | null>(null);
@@ -308,7 +306,7 @@ export default function Page() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full h-full max-w-[250px] max-h-[250px]">
                 <Orb
-                  colors={["#000000", "#FF0000"]}
+                  colors={["#000000", "#DADADA"]}
                   getInputVolume={conversation.getInputVolume}
                   getOutputVolume={conversation.getOutputVolume}
                 />
@@ -354,14 +352,14 @@ export default function Page() {
           >
             <Button
               variant="default"
-              className="px-4 py-2 rounded-full border-blue-500 border-2 hover:bg-blue-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
+              className="px-4 py-2 rounded-full border-2 backdrop-blur-[16px] shadow-2xl"
               onClick={() => endCall()}
             >
               Save Card
             </Button>
             <Button
-              variant="default"
-              className="px-4 py-2 rounded-full border-gray-500 border-2 hover:bg-gray-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl"
+              variant="outline"
+              className="px-4 py-2 rounded-full  border-2 backdrop-blur-[16px] shadow-2xl"
               onClick={async () => {
                 await conversation.endSession();
                 window.location.reload();

@@ -46,7 +46,7 @@ export function InterviewCard({
           >
             <Button
               onClick={() => setIsOpen(true)}
-              className="text-white font-bold px-10 py-5 rounded-full border-blue-500 border-2 bg-blue-900/90 hover:bg-white/5 backdrop-blur-[16px] shadow-2xl"
+              className="font-bold px-10 py-5 rounded-full border-2 backdrop-blur-[16px] shadow-2xl"
               variant="default"
               size="lg"
             >
@@ -64,7 +64,7 @@ export function InterviewCard({
           className={cn("mx-auto max-w-2xl px-6")}
         >
           <div className="container mx-auto flex flex-col items-stretch gap-4 px-6">
-            <DrawerHeader>
+            <DrawerHeader className="pb-0" >
               <DrawerTitle className="text-2xl font-bold text-blue-600 text-center">
                 {name ? `${name}'s Interview Feedback` : "Interview Feedback"}k
               </DrawerTitle>
@@ -94,7 +94,7 @@ export function InterviewCard({
                               ease: "easeOut",
                               delay: 0.1 + index * 0.1,
                             }}
-                            className="flex items-start gap-2 text-gray-700"
+                            className="flex items-center gap-2 text-gray-700"
                           >
                             <span className="text-green-500 mt-1">✓</span>
                             <span>{strength}</span>
@@ -116,7 +116,7 @@ export function InterviewCard({
                               ease: "easeOut",
                               delay: 0.1 + index * 0.1,
                             }}
-                            className="flex items-start gap-2 text-gray-700"
+                            className="flex items-center gap-2 text-gray-700"
                           >
                             <span className="text-red-500 mt-1">!</span>
                             <span>{area}</span>
@@ -139,7 +139,7 @@ export function InterviewCard({
                             ease: "easeOut",
                             delay: 0.1 + index * 0.1,
                           }}
-                          className="flex items-start gap-2 text-gray-700"
+                          className="flex items-center gap-2 text-gray-700"
                         >
                           <span className="text-blue-500 mt-1">→</span>
                           <span>{step}</span>
@@ -204,7 +204,7 @@ export function InterviewCard({
             </div>
             )}
             
-            <DrawerFooter className="flex justify-between border-t pt-6">
+            <DrawerFooter className="flex justify-between pt-4">
               <span className="text-gray-500">
                 Made with{" "}
                 <span role="img" aria-label="heart">

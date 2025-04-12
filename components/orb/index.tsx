@@ -13,7 +13,7 @@ const PERLIN_NOISE =
   "https://storage.googleapis.com/eleven-public-cdn/images/perlin-noise.png";
 
 export function Orb({
-  colors = ["#DBDCE0", "#ffffff"],
+  colors = ["#E0DCDB", "#ffffff"],
   getInputVolume,
   getOutputVolume,
 }: {
