@@ -1,6 +1,5 @@
 import { Logo } from "@/components/logo/index";
 import { Snowfall } from "@/components/snowfall";
-import { MusicPlayer } from "@/components/music-player";
 import Link from "next/link";
 import { DisclaimerButton } from "@/components/disclaimer-button";
 
