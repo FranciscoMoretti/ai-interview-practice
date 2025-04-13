@@ -2,6 +2,7 @@
 
 import {
   getAgentSignedUrl,
+  getConversationAudio,
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
@@ -10,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useConversation } from "@11labs/react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -20,37 +20,37 @@ import { FeedbackHistoryState, OverallFeedbackState, Question } from "@/types/in
 
 const NUM_QUESTIONS = 3
 
-const DUMMY_QUESTION: Question[] = [
-  {
-    questionId: "1",
-    questionText: "What is your name?",
-    answer: "John Doe",
-  },
-]
-const DUMMY_FEEDBACK_HISTORY: FeedbackHistoryState[] = [
-  {
-    questionId: "1",
-    questionText: "What is your name?",
-    answer: "John Doe",
-    feedback: "Good job!",
-    score: 5,
-    suggestions: ["Be more concise", "Use more active verbs"],
-  },{
-    questionId: "2",
-    questionText: "What is your name?",
-    answer: "John Doe",
-    feedback: "Good job!",
-    score: 5,
-    suggestions: ["Be more concise", "Use more active verbs"],
-  }
-]
+// const DUMMY_QUESTION: Question[] = [
+//   {
+//     questionId: "1",
+//     questionText: "What is your name?",
+//     answer: "John Doe",
+//   },
+// ]
+// const DUMMY_FEEDBACK_HISTORY: FeedbackHistoryState[] = [
+//   {
+//     questionId: "1",
+//     questionText: "What is your name?",
+//     answer: "John Doe",
+//     feedback: "Good job!",
+//     score: 5,
+//     suggestions: ["Be more concise", "Use more active verbs"],
+//   },{
+//     questionId: "2",
+//     questionText: "What is your name?",
+//     answer: "John Doe",
+//     feedback: "Good job!",
+//     score: 5,
+//     suggestions: ["Be more concise", "Use more active verbs"],
+//   }
+// ]
 
-const DUMMY_OVERALL_FEEDBACK: OverallFeedbackState = {
-  score: 5,
-  strengths: ["Good job!", "Be more concise", "Use more active verbs"],
-  areasForImprovement: ["Be more concise", "Use more active verbs"],
-  nextSteps: ["Be more concise", "Use more active verbs"],
-}
+// const DUMMY_OVERALL_FEEDBACK: OverallFeedbackState = {
+//   score: 5,
+//   strengths: ["Good job!", "Be more concise", "Use more active verbs"],
+//   areasForImprovement: ["Be more concise", "Use more active verbs"],
+//   nextSteps: ["Be more concise", "Use more active verbs"],
+// }
 
 
 export default function Page() {
@@ -71,8 +71,6 @@ export default function Page() {
       console.log("debug", props);
     },
   });
-  const router = useRouter();
-
   // permission state
   const [hasAudioAccess, setHasAudioAccess] = useState(false);
   const [language, setLanguage] = useState<string | null>(null);
@@ -84,10 +82,12 @@ export default function Page() {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isEndingCall, setIsEndingCall] = useState(false);
 
-  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackHistoryState[]>(DUMMY_FEEDBACK_HISTORY);
+  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackHistoryState[]>([]);
   
   const [overallFeedback, setOverallFeedback] = useState<OverallFeedbackState | null>(null);
 
+
+  // language handling
   useEffect(() => {
     try {
       const stored = localStorage.getItem("preferredLanguage");
@@ -245,6 +245,7 @@ export default function Page() {
       toast.error("Failed to start conversation.");
     }
   };
+
   const endCall = async () => {
     if (!conversationId) {
       toast.error("Conversation not found");
@@ -263,8 +264,10 @@ export default function Page() {
         streamRef.current = null;
       }
 
+      // TODO: Do a view with the interview feedback
       // redirect to the card page
-      router.push(`/cards/${conversationId}`, { scroll: false });
+      // router.push(`/cards/${conversationId}`, { scroll: false });
+      setIsEndingCall(false);
     } catch (err) {
       console.error(err);
       toast.error("Failed to save conversation.");
@@ -272,7 +275,6 @@ export default function Page() {
     }
   };
 
-  conversation.status = "connected"
   return (
     <div className="overflow-hidden">
       {/* Start Interview Button */}
@@ -318,7 +320,7 @@ export default function Page() {
         <div className="mt-4 flex space-x-4">
           {conversation.status === "connected" && (
             <motion.div
-              className="w-32 h-32 rounded-full overflow-hidden border-4 border-red-500 border-opacity-50 shadow-lg"
+              className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/70 border-opacity-50 shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
@@ -355,7 +357,7 @@ export default function Page() {
               className="px-4 py-2 rounded-full border-2 backdrop-blur-[16px] shadow-2xl"
               onClick={() => endCall()}
             >
-              Save Card
+              End
             </Button>
             <Button
               variant="outline"
@@ -372,7 +374,7 @@ export default function Page() {
         {conversation.status === "connected" && (
           <InterviewCard
             conversation={conversation}
-            endCall={endCall}
+
             isOpen={isCardOpen}
             setIsOpen={setIsCardOpen}
             name={name}

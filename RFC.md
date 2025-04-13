@@ -21,6 +21,9 @@ A web application that helps software developers practice for technical intervie
    - LanguageSelector - Choose programming language
    - DifficultySelector - Set interview difficulty
 
+1.5 Question Inputs
+   - Select questions before starting the interview
+
 2. **State Management**
    - Local state for interview session
 

@@ -19,7 +19,6 @@ interface InterviewCardProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   conversation: any;
-  endCall: (withVideo?: boolean) => void;
   feedbackHistory: FeedbackItem[];
   overallFeedback: OverallFeedback | null;
 }
@@ -29,7 +28,6 @@ export function InterviewCard({
   setIsOpen,
   name,
   conversation,
-  endCall,
   feedbackHistory,
   overallFeedback,
 }: InterviewCardProps) {
@@ -229,17 +227,6 @@ export function InterviewCard({
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Restart
-                </Button>
-                <Button
-                  variant="default"
-                  className="flex-1 px-4 py-2 rounded-full border-blue-500 border-2 bg-blue-900/90 hover:bg-blue-950/90 text-white backdrop-blur-[16px] shadow-2xl"
-                  onClick={() => {
-                    setIsOpen(false);
-                    endCall(false);
-                  }}
-                >
-                  Save Audio
-                  <AudioLines className="w-4 h-4 ml-2" />
                 </Button>
                 <Button
                   variant="default"

@@ -227,7 +227,6 @@ export function LanguageDropdown({
               <SelectItem
                 key={lang.code}
                 value={lang.code}
-                className="hover:bg-red-100 focus:bg-red-100 cursor-pointer"
               >
                 {lang.name}
               </SelectItem>

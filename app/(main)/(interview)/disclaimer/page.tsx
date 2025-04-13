@@ -32,7 +32,7 @@ export default function Page() {
         <CardContent className="max-w-2xl mx-auto px-8 py-5">
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
-              By clicking &apos;Call Santa,&apos; and each time I interact with
+              By clicking &apos;Start Interview,&apos; and each time I interact with
               this AI agent, I confirm that:
             </p>
             <ul className="list-disc ml-6 space-y-2 text-gray-700">

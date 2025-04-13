@@ -94,7 +94,7 @@ export function CallButton({
   return (
     <>
       {!isCalling && (
-        <div className={"text-white flex items-center gap-2 text-sm mb-2"}>
+        <div className={"text-gray-700 flex items-center gap-2 text-sm mb-2"}>
           For the best experience, find a quiet place
         </div>
       )}
@@ -103,8 +103,8 @@ export function CallButton({
         onClick={onCallClick}
         disabled={isCalling || status !== "disconnected"}
         className={cn(
-          "relative w-64 h-16 rounded-full border-red-500 border-2 hover:bg-red-900/90 bg-white/5 backdrop-blur-[16px] shadow-2xl",
-          isCalling && "bg-red-900/90"
+          "relative w-64 h-16 rounded-full  border-2  backdrop-blur-[16px] shadow-2xl",
+          isCalling && "bg-blue-900/90"
         )}
       >
         <div className="absolute left-3 top-1/2 -translate-y-1/2">
@@ -134,13 +134,13 @@ export function CallButton({
 
       {!isCalling && (
         <div className={"text-sm"}>
-          <span className="text-gray-200">Powered by</span>{" "}
+          <span className="text-gray-700">Powered by</span>{" "}
           <Link
             target="_blank"
             href="https://elevenlabs.io/conversational-ai"
             className={cn(
               buttonVariants({ variant: "link" }),
-              "text-white pl-0"
+              "text-blue-600 pl-0"
             )}
           >
             ElevenLabs Conversational AI
@@ -151,7 +151,7 @@ export function CallButton({
       {!isCalling && (
         <div className={"flex flex-col gap-3 mt-4"}>
           <div className="flex items-center gap-2">
-            <Label htmlFor="language" className="text-white w-24">
+            <Label htmlFor="language" className="text-gray-700 w-24">
               Language:
             </Label>
             <LanguageDropdown
@@ -162,7 +162,7 @@ export function CallButton({
           </div>
           
           <div className="flex items-center gap-2">
-            <Label htmlFor="difficulty" className="text-white w-24">
+            <Label htmlFor="difficulty" className="text-gray-700 w-24">
               Difficulty:
             </Label>
             <Select value={difficulty} onValueChange={setDifficulty}>
@@ -174,7 +174,7 @@ export function CallButton({
                   <SelectItem
                     key={level.value}
                     value={level.value}
-                    className="hover:bg-red-100 focus:bg-red-100 cursor-pointer"
+                    className=" cursor-pointer"
                   >
                     {level.label}
                   </SelectItem>
@@ -184,14 +184,14 @@ export function CallButton({
           </div>
           
           <div className="flex items-center gap-2">
-            <Label htmlFor="topic" className="text-white w-24">
+            <Label htmlFor="topic" className="text-gray-700 w-24">
               Topic:
             </Label>
             <Input
               id="topic"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
-              className="w-[180px] transition-colors bg-white/10 border-white/20 text-white"
+              className="w-[180px] transition-colors bg-white border-gray-300 text-gray-900"
               placeholder="e.g. JavaScript, React"
             />
           </div>
@@ -207,10 +207,10 @@ export function CallButton({
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-y-2">
-            <Button variant="secondary" className="bg-red-800 hover:bg-red-600 text-white mb-2 sm:mb-0" onClick={() => setShowAgeModal(false)}>
+            <Button variant="outline"  onClick={() => setShowAgeModal(false)}>
               Cancel
             </Button>
-            <Button className="bg-green-800 hover:bg-green-600" onClick={handleAgeConfirm}>I confirm I am 18+</Button>
+            <Button variant="default" onClick={handleAgeConfirm}>I confirm I am 18+</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
