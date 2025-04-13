@@ -3,7 +3,6 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";

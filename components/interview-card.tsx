@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { Mail, Download, RefreshCw, AudioLines } from "lucide-react";
+import { Mail, Download, RefreshCw } from "lucide-react";
 import { downloadFeedbackAsMarkdown } from "@/lib/download-feedback";
 import { FeedbackItem, OverallFeedback } from "@/types/interview";
 

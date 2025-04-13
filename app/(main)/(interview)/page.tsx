@@ -14,7 +14,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { LANGUAGES } from "@/components/language-dropdown";
-import { FeedbackHistoryState, OverallFeedbackState, Question } from "@/types/interview";
+import { FeedbackHistoryState, OverallFeedbackState } from "@/types/interview";
 import { PROMPT } from "./prompts";
 
 

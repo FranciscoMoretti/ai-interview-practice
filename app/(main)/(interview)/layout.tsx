@@ -1,7 +1,6 @@
 import { LogoIcon } from "@/components/logo/index";
 import Link from "next/link";
 import { DisclaimerButton } from "@/components/disclaimer-button";
-import Image from "next/image";
 export default function Layout({
   children,
 }: Readonly<{
