@@ -2,7 +2,7 @@
 
 An AI-powered interview practice platform built with our [Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
 
-| Select Interview | Call Started | Question Feedback | Overall Feedback |
+| Interview Config | Call Started | Question Feedback | Overall Feedback |
 |------|--------------|----------|------------------|
 | ![Home](images/home.png) | ![Call Started](images/call_started.png) | ![Feedback](images/feedback.png) | ![Overall Feedback](images/overall_feedback.png) |
 
