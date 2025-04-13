@@ -1,6 +1,22 @@
 import { LogoIcon } from "@/components/logo/index";
 import Link from "next/link";
 import { DisclaimerButton } from "@/components/disclaimer-button";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "AI Mock Interview | Practice Platform",
+  description: "AI-powered interview practice platform built with ElevenLabs Conversational AI SDK",
+  keywords: ["interview practice", "AI interview", "mock interview", "ElevenLabs"],
+  authors: [{ name: "AI Interview Practice Team" }],
+  openGraph: {
+    title: "AI Mock Interview | Practice Platform",
+    description: "AI-powered interview practice platform built with ElevenLabs Conversational AI SDK",
+    siteName: "AI Interview Practice",
+    locale: "en_US",
+    type: "website",
+  },
+};
+
 export default function Layout({
   children,
 }: Readonly<{

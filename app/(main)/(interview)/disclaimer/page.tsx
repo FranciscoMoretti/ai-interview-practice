@@ -64,7 +64,7 @@ export default function Page() {
             <span role="img" aria-label="heart">
               ❤️
             </span>{" "}
-            in the North Pole by{" "}
+            by{" "}
             <strong>
               <a href="https://github.com/franciscoMoretti" target="_blank">
                 Francisco Moretti
