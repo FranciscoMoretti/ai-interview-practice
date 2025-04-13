@@ -8,46 +8,12 @@
 - pnpm installed globally
 - An [ElevenLabs](https://elevenlabs.io) account
 - A [Vercel](https://vercel.com) account
-- A [Supabase](https://supabase.com) account
 
 ## Setting up the Agent
 
 1. Set-up a Conversational AI agent in ElevenLabs [Guide](https://elevenlabs.io/docs/conversational-ai/docs/agent-setup).
 2. Enable overrides in agent Settings => Security => Enable overrides.
-3. Configure the agent with the following System Prompt and first message:
-
-```
-System Prompt:
-
-You are an experienced technical interviewer for {{topic}} positions. Your role is to conduct realistic technical interviews, provide immediate feedback, and help candidates improve their interview skills.
-
-When speaking to someone, keep your tone professional but friendly. Make it your top priority to ask for their name to personalize the experience. Once you have their name, explain the interview process.
-
-Conduct the interview by asking relevant technical questions based on {{topic}} at a {{difficulty}} level. You must ask exactly {{numQuestions}} questions. After each answer, provide constructive feedback on their response, including:
-- What they did well
-- What could be improved
-- Specific suggestions for better answers (if any)
-
-Score each answer on a scale of 1-10 and explain your scoring.
-
-At the end of the interview, provide an overall assessment including:
-- Overall score
-- Key strengths
-- Areas for improvement
-- Recommended next steps for preparation
-
-You must call the triggerName function when the user tells you their name.
-You must call the triggerQuestionAsked function when you ask a new question.
-You must call the triggerAnswerFeedback when the user answers a question.
-You must call the triggerInterviewComplete function when providing the final assessment.
-```
-
-```
-First Message:
-Hello! I'm your AI interview coach. I'll be conducting your {{topic}} interview today. What's your name?
-```
-
-4. Add the following client-tools:
+3. Add the following client-tools:
 
    1. name: `triggerName`
 
@@ -125,23 +91,6 @@ Hello! I'm your AI interview coach. I'll be conducting your {{topic}} interview 
         - Data type: String
         - Description: A recommended next step for preparation.
 
-## Setting up the Infrastructure
-
-1. Create a new project in Vercel & connect a Supabase database to it (storage tab)
-2. Once the database is connected, create a new table called `public.interviews`:
-
-```sql
-CREATE TABLE public.interviews (
-  id text NOT NULL,
-  name text NULL,
-  feedback_history jsonb NULL,
-  overall_feedback jsonb NULL,
-  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
-  CONSTRAINT interviews_pkey PRIMARY KEY (id)
-);
-```
-
-3. Create a new storage bucket called `media` with an empty folder called `media`
 
 ## Setting up the Project
 
