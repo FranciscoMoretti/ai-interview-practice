@@ -323,13 +323,6 @@ export default function Page() {
             )}
           >
             <Button
-              variant="default"
-              className="px-4 py-2 rounded-full border-2 backdrop-blur-[16px] shadow-2xl"
-              onClick={() => endCall()}
-            >
-              End
-            </Button>
-            <Button
               variant="outline"
               className="px-4 py-2 rounded-full  border-2 backdrop-blur-[16px] shadow-2xl"
               onClick={async () => {

@@ -11,7 +11,7 @@ export function DisclaimerButton() {
     <Button
       variant="ghost"
       onClick={() => router.push('/disclaimer')}
-      className="absolute bottom-4 left-4 flex items-center gap-1 text-xs transition-colors"
+      className="flex items-center gap-1 text-xs transition-colors"
     >
       <ScrollText size={14} />
       <span>Privacy Policy</span>

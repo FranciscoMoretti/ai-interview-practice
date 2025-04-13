@@ -2,6 +2,9 @@ import { LogoIcon } from "@/components/logo/index";
 import Link from "next/link";
 import { DisclaimerButton } from "@/components/disclaimer-button";
 import { Metadata } from "next";
+import { Github } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "AI Mock Interview | Practice Platform",
@@ -37,8 +40,21 @@ export default function Layout({
         </div>
       </main>
 
-
-      <DisclaimerButton />
+      <div className="absolute bottom-0 left-0 right-0 flex justify-between p-4">
+        <DisclaimerButton />
+        <a 
+          href="https://github.com/FranciscoMoretti/ai-mock-interview" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className={cn(
+            buttonVariants({ variant: "ghost" }),
+            "flex items-center gap-1 text-xs text-foreground hover:text-foreground transition-colors"
+          )}
+        >
+          <Github size={24} />
+          <span>GitHub</span>
+        </a>
+      </div>
     </div>
   );
 }
