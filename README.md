@@ -1,4 +1,4 @@
-# 🎯 AI Interview Practice Platform
+# 🎯 AI Mock Interview
 
 An AI-powered interview practice platform built with our [Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
 
