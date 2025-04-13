@@ -207,7 +207,7 @@ export default function Page() {
             
             // Open the feedback card
             setIsCardOpen(true);
-          }
+          },
         },
       });
     } catch (err) {
@@ -333,7 +333,7 @@ export default function Page() {
               variant="outline"
               className="px-4 py-2 rounded-full  border-2 backdrop-blur-[16px] shadow-2xl"
               onClick={async () => {
-                await conversation.endSession();
+                await endCall();
                 window.location.reload();
               }}
             >

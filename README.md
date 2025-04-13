@@ -15,6 +15,8 @@
 2. Enable overrides in agent Settings => Security => Enable overrides.
 3. Add the following client-tools:
 
+  <!-- TODO: Should I add end call here? -->
+
    1. name: `triggerName`
 
    - Description: When the person tells you their name, call this function to store in memory.
@@ -29,7 +31,7 @@
    - Parameter 1:
      1. Data type: String
      2. Identifier: questionId
-     3. Description: A unique identifier for the question (e.g., "js_closure_1").
+     3. Description: A unique identifier for the question (e.g., "q1").
    - Parameter 2:
      1. Data type: String
      2. Identifier: questionText
@@ -49,7 +51,7 @@
    - Parameter 3:
      1. Data type: String
      2. Identifier: feedback
-     3. Description: Your detailed feedback on the answer.
+     3. Description: Your feedback on the answer.
    - Parameter 4:
      1. Data type: Number
      2. Identifier: score

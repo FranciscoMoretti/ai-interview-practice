@@ -92,9 +92,9 @@ export function InterviewCard({
                               ease: "easeOut",
                               delay: 0.1 + index * 0.1,
                             }}
-                            className="flex items-center gap-2 text-gray-700"
+                            className="flex items-start gap-2 text-gray-700"
                           >
-                            <span className="text-green-500 mt-1">✓</span>
+                            <span className="text-green-500">✓</span>
                             <span>{strength}</span>
                           </motion.li>
                         ))}
@@ -114,9 +114,9 @@ export function InterviewCard({
                               ease: "easeOut",
                               delay: 0.1 + index * 0.1,
                             }}
-                            className="flex items-center gap-2 text-gray-700"
+                            className="flex items-start gap-2 text-gray-700"
                           >
-                            <span className="text-red-500 mt-1">!</span>
+                            <span className="text-red-500">!</span>
                             <span>{area}</span>
                           </motion.li>
                         ))}
@@ -137,9 +137,9 @@ export function InterviewCard({
                             ease: "easeOut",
                             delay: 0.1 + index * 0.1,
                           }}
-                          className="flex items-center gap-2 text-gray-700"
+                          className="flex items-start gap-2 text-gray-700"
                         >
-                          <span className="text-blue-500 mt-1">→</span>
+                          <span className="text-blue-500">→</span>
                           <span>{step}</span>
                         </motion.li>
                       ))}
