@@ -1,6 +1,6 @@
 # 🎯 AI Mock Interview
 
-An AI-powered interview practice platform built with our [Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
+An AI-powered interview practice platform built with [ElevenLabs Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
 
 | Interview Config | Call Started | Question Feedback | Overall Feedback |
 |------|--------------|----------|------------------|
@@ -100,7 +100,8 @@ An AI-powered interview practice platform built with our [Conversational AI SDK]
 ## Setting up the Project
 
 1. `pnpm install`
-2. `cp .env.example .env` (Recommended: add the `AGENT_ID` & `XI_API_KEY` to Vercel and pull them using vercel env pull)
+2. `cp .env.example .env`
+3. Add your `AGENT_ID` & `XI_API_KEY` to the `.env` file
 3. `pnpm run dev`
 
 ## 📝 License
