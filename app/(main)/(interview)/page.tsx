@@ -2,7 +2,6 @@
 
 import {
   getAgentSignedUrl,
-  getConversationAudio,
 } from "@/app/(main)/(interview)/actions/actions";
 import { CallButton } from "@/components/call-button";
 import { Orb } from "@/components/orb";
