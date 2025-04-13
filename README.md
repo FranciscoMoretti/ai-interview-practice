@@ -1,6 +1,6 @@
 # 🎯 AI Interview Practice Platform
 
-[ai-interview-practice.io](https://ai-interview-practice.io) is an AI-powered interview practice platform built with our [Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
+An AI-powered interview practice platform built with our [Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
 
 | Select Interview | Call Started | Question Feedback | Overall Feedback |
 |------|--------------|----------|------------------|
@@ -19,7 +19,6 @@
 2. Enable overrides in agent Settings => Security => Enable overrides.
 3. Add the following client-tools:
 
-  <!-- TODO: Should I add end call here? -->
 
    1. name: `triggerName`
 
