@@ -64,7 +64,7 @@ export function InterviewCard({
           <div className="container mx-auto flex flex-col items-stretch gap-4 px-6">
             <DrawerHeader className="pb-0" >
               <DrawerTitle className="text-2xl font-bold text-blue-600 text-center">
-                {name ? `${name}'s Interview Feedback` : "Interview Feedback"}k
+                {name ? `${name}'s Interview Feedback` : "Interview Feedback"}
               </DrawerTitle>
               <hr className="border-t-2 border-blue-300 my-2 opacity-20" />
             </DrawerHeader>
