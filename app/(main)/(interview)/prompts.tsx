@@ -14,6 +14,9 @@ At the end of the interview, provide an brief overall assessment including:
 - Areas for improvement
 - Recommended next steps for preparation
 
+
+IMPORTANT: Confirm with the candidate before ending the interview.
+
 ## Guidelines
 
 ### When providing feedback
