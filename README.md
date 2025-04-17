@@ -2,24 +2,9 @@
 
 An AI-powered interview practice platform built with [ElevenLabs Conversational AI SDK](https://www.npmjs.com/package/@11labs/react).
 
-<table>
-  <tr>
-    <th align="center">Interview Config</th>
-    <th align="center">Call Started</th>
-  </tr>
-  <tr>
-    <td align="center"><img src="images/home.png" alt="Home"/></td>
-    <td align="center"><img src="images/call_started.png" alt="Call Started"/></td>
-  </tr>
-  <tr>
-    <th align="center">Question Feedback</th>
-    <th align="center">Overall Feedback</th>
-  </tr>
-  <tr>
-    <td align="center"><img src="images/feedback.png" alt="Feedback"/></td>
-    <td align="center"><img src="images/overall_feedback.png" alt="Overall Feedback"/></td>
-  </tr>
-</table>
+
+https://github.com/user-attachments/assets/2f967812-ca03-4d1f-bf62-6c516df6c453
+
 
 ## Prerequisites
 
