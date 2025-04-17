@@ -26,7 +26,6 @@ An AI-powered interview practice platform built with [ElevenLabs Conversational 
 - Node.js 16 or higher
 - pnpm installed globally
 - An [ElevenLabs](https://elevenlabs.io) account
-- A [Vercel](https://vercel.com) account
 
 ## Setting up the Agent
 
