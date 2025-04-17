@@ -5,6 +5,11 @@ An AI-powered interview practice platform built with [ElevenLabs Conversational 
 
 https://github.com/user-attachments/assets/2f967812-ca03-4d1f-bf62-6c516df6c453
 
+## Features
+- 🎯 Any interview topic and difficulty level
+- ⚡️ Instant feedback on your answers
+- ✨ Personalized suggestions to improve your answers
+- 📊 Final score and a detailed report of your interview
 
 ## Prerequisites
 
