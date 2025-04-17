@@ -248,7 +248,7 @@ export default function Page() {
     }
   };
 
-  let conversationPhase: ConversationPhase = getConversationPhase(overallFeedback, feedbackHistory, conversation.status);
+  const conversationPhase: ConversationPhase = getConversationPhase(overallFeedback, feedbackHistory, conversation.status);
 
   return (
     <div className="overflow-hidden">
@@ -367,7 +367,7 @@ export default function Page() {
 }
 function getConversationPhase(overallFeedback: OverallFeedbackState | null, feedbackHistory: FeedbackHistoryState[], conversationStatus: "connecting" | "connected" | "disconnecting" | "disconnected"): ConversationPhase {
 
-  let feedbackStatus: FeedbackStatus = overallFeedback ? "overall_feedback" : feedbackHistory.length > 0 ? "question_feedback" : "no_feedback";
+  const feedbackStatus: FeedbackStatus = overallFeedback ? "overall_feedback" : feedbackHistory.length > 0 ? "question_feedback" : "no_feedback";
   if(conversationStatus === "connecting") {
     return "not_started";
   }
