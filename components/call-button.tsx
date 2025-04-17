@@ -149,7 +149,7 @@ export function CallButton({
 
       {!isCalling && (
         <div className={"flex flex-col gap-3 mt-4"}>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <Label htmlFor="language" className="text-gray-700 w-24">
               Language:
             </Label>
@@ -158,7 +158,7 @@ export function CallButton({
               setLanguage={setLanguage}
               languages={languages}
             />
-          </div>
+          </div> */}
           
           <div className="flex items-center gap-2">
             <Label htmlFor="difficulty" className="text-gray-700 w-24">
