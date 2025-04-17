@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { LanguageDropdown, LANGUAGES } from "@/components/language-dropdown";
+import { LANGUAGES } from "@/components/language-dropdown";
 import Link from "next/link";
 import {
   Dialog,
