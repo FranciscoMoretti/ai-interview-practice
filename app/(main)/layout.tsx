@@ -17,43 +17,36 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://talktosanta.io"),
-  title: "Talk to Santa | ElevenLabs",
-  description: "Talk to Santa, powered by ElevenLabs Conversational AI.",
+  title: "AI Mock Interview",
+  description: "AI Mock Interview, powered by ElevenLabs Conversational AI.",
   keywords: [
-    "Santa Claus",
-    "AI Santa",
-    "Christmas",
-    "Holiday",
-    "Virtual Santa",
-    "North Pole",
-    "Talk to Santa",
+    "AI Mock Interview",
+    "Mock Interview",
+    "Interview",
+    "Interview Practice",
+    "Interview Preparation",
+    "Interview Questions",
+    "Interview Answers",
+    "Interview Feedback",
+    "Interview Score",
+    "Interview Report",
     "ElevenLabs",
     "AI Chat",
     "Conversational AI",
   ],
   openGraph: {
-    title: "Talk to Santa | ElevenLabs",
-    description: "Talk to Santa, powered by ElevenLabs Conversational AI.",
-    images: [
-      {
-        url: "/assets/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Interactive AI Santa Claus Experience by ElevenLabs",
-      },
-    ],
+    title: "AI Mock Interview | ElevenLabs",
+    description: "AI Mock Interview, powered by ElevenLabs Conversational AI.",
+
     type: "website",
     locale: "en_US",
-    siteName: "Talk to Santa",
+    siteName: "AI Mock Interview",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Talk to Santa | ElevenLabs",
+    title: "AI Mock Interview | ElevenLabs",
     description:
-      "Experience a real-time conversation with Santa Claus, powered by ElevenLabs Conversational AI.",
-    images: ["/assets/og-image.jpg"],
-    creator: "@elevenlabsio",
+      "Practice your interview skills with AI mock interviews, powered by ElevenLabs Conversational AI.",
   },
   robots: {
     index: true,
