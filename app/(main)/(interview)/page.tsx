@@ -16,9 +16,12 @@ import Image from "next/image";
 import { LANGUAGES } from "@/components/language-dropdown";
 import { FeedbackHistoryState, OverallFeedbackState } from "@/types/interview";
 import { PROMPT } from "./prompts";
-
+import { InterviewSummary } from "@/components/interview-summary";
 
 const NUM_QUESTIONS = 3
+
+type FeedbackStatus = "no_feedback" | "question_feedback" | "overall_feedback";
+type ConversationPhase = 'not_started' | "in_progress_intro" | "in_progress_questions" | "in_progress_overall_feedback" | "completed";
 
 export default function Page() {
   const conversation = useConversation({
@@ -245,11 +248,13 @@ export default function Page() {
     }
   };
 
+  let conversationPhase: ConversationPhase = getConversationPhase(overallFeedback, feedbackHistory, conversation.status);
+
   return (
     <div className="overflow-hidden">
       {/* Start Interview Button */}
       <div className="flex flex-col items-center justify-center min-h-screen md:min-h-screen pt-0 md:pt-16">
-        {conversation.status !== "connected" && !isEndingCall && (
+        {conversationPhase === "not_started" && (
           <CallButton
             status={conversation.status}
             startCall={startCall}
@@ -334,7 +339,7 @@ export default function Page() {
             </Button>
           </div>
         )}
-        {conversation.status === "connected" && (
+        {conversationPhase !== "not_started" && conversationPhase !== "completed" && (
           <InterviewCard
             conversation={conversation}
 
@@ -345,7 +350,40 @@ export default function Page() {
             overallFeedback={overallFeedback}
           />
         )}
+
+        {conversationPhase === "completed" && (
+          <InterviewSummary
+            conversation={conversation}
+            feedbackHistory={feedbackHistory}
+            overallFeedback={overallFeedback}
+            name={name}
+          />
+        )}
+
+        
       </div>
     </div>
   );
 }
+function getConversationPhase(overallFeedback: OverallFeedbackState | null, feedbackHistory: FeedbackHistoryState[], conversationStatus: "connecting" | "connected" | "disconnecting" | "disconnected"): ConversationPhase {
+
+  let feedbackStatus: FeedbackStatus = overallFeedback ? "overall_feedback" : feedbackHistory.length > 0 ? "question_feedback" : "no_feedback";
+  if(conversationStatus === "connecting") {
+    return "not_started";
+  }
+  if(conversationStatus === "connected" && feedbackStatus === "no_feedback") {
+    return "in_progress_intro";
+  }
+  if(conversationStatus === "connected" && feedbackStatus === "question_feedback") {
+    return "in_progress_questions";
+  }
+  if(conversationStatus === "connected" && feedbackStatus === "overall_feedback") {
+    return "in_progress_overall_feedback";
+  }
+
+  if(conversationStatus === "disconnected" && feedbackStatus !== "no_feedback") {
+    return "completed";
+  }
+  return "not_started";
+}
+

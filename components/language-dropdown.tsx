@@ -208,32 +208,24 @@ export function LanguageDropdown({
   language,
   languages,
 }: LanguageDropdownProps) {
-  const currentLanguage = languages.find(lang => lang.code === language)?.name;
+  const currentLanguage = languages.find(
+    (lang) => lang.code === language
+  )?.name;
 
   return (
-    <div
-      className="h-10 opacity-0 transition-opacity duration-300 ease-in-out"
-      style={{ opacity: language ? 1 : 0 }}
-    >
-      {language && (
-        <Select value={language} onValueChange={setLanguage}>
-          <SelectTrigger className="w-[180px] transition-colors">
-            <SelectValue placeholder="Select Language">
-              {currentLanguage}
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {languages.map(lang => (
-              <SelectItem
-                key={lang.code}
-                value={lang.code}
-              >
-                {lang.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      )}
-    </div>
+    <Select value={language || undefined} onValueChange={setLanguage}>
+      <SelectTrigger className="w-[180px] transition-colors">
+        <SelectValue placeholder={language ? "Select Language" : ''}>
+          {currentLanguage}
+        </SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        {languages.map((lang) => (
+          <SelectItem key={lang.code} value={lang.code}>
+            {lang.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
